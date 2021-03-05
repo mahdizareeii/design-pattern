@@ -9,6 +9,7 @@ import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfac
 import com.kotlin.testapp.designpatterns.creational.builder.ToastBuilder
 import com.kotlin.testapp.designpatterns.creational.factory.CarFactory
 import com.kotlin.testapp.designpatterns.creational.factory.CarType
+import com.kotlin.testapp.designpatterns.creational.singleton.SingleTonTest
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            abstractFactoryDesignPatternTest()
+            singletonDesignPatternTest()
         }
     }
 
@@ -41,5 +42,10 @@ class MainActivity : AppCompatActivity() {
         val motorCycle = factory.create(MotorizedType.SUZUKI)
         motorCycle.turnOn()
         motorCycle.turnOff()
+    }
+
+    private fun singletonDesignPatternTest() {
+        val instance = SingleTonTest.instance
+        println(instance::class.java.name)
     }
 }
