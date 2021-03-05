@@ -3,6 +3,9 @@ package com.kotlin.testapp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kotlin.testapp.designpatterns.creational.abstractfactory.factories.motorcyclefactory.MotorcycleFactory
+import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedFactory
+import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedType
 import com.kotlin.testapp.designpatterns.creational.builder.ToastBuilder
 import com.kotlin.testapp.designpatterns.creational.factory.CarFactory
 import com.kotlin.testapp.designpatterns.creational.factory.CarType
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            factoryDesignPatternTest()
+            abstractFactoryDesignPatternTest()
         }
     }
 
@@ -31,5 +34,12 @@ class MainActivity : AppCompatActivity() {
         car?.move()
         car?.drift()
         car?.brake()
+    }
+
+    private fun abstractFactoryDesignPatternTest() {
+        val factory = MotorizedFactory.createFactory<MotorcycleFactory>()
+        val motorCycle = factory.create(MotorizedType.SUZUKI)
+        motorCycle.turnOn()
+        motorCycle.turnOff()
     }
 }
