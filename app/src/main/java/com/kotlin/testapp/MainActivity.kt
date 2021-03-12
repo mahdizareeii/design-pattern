@@ -11,6 +11,7 @@ import com.kotlin.testapp.designpatterns.creational.factory.CarFactory
 import com.kotlin.testapp.designpatterns.creational.factory.CarType
 import com.kotlin.testapp.designpatterns.creational.prototype.EmailSender
 import com.kotlin.testapp.designpatterns.creational.singleton.SingleTonTest
+import com.kotlin.testapp.designpatterns.structural.adapter.PlayerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            prototypeDesignPatternTest()
+            adapterDesignPatternTest()
         }
     }
 
@@ -68,5 +69,10 @@ class MainActivity : AppCompatActivity() {
          *  ***
          *  in kotlin but in java we use that solution
          */
+    }
+
+    private fun adapterDesignPatternTest(){
+        val playerAdapter = PlayerAdapter()
+        playerAdapter.play("hayedeh.mp3")
     }
 }
