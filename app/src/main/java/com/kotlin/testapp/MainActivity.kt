@@ -9,6 +9,7 @@ import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfac
 import com.kotlin.testapp.designpatterns.creational.builder.ToastBuilder
 import com.kotlin.testapp.designpatterns.creational.factory.CarFactory
 import com.kotlin.testapp.designpatterns.creational.factory.CarType
+import com.kotlin.testapp.designpatterns.creational.prototype.EmailSender
 import com.kotlin.testapp.designpatterns.creational.singleton.SingleTonTest
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            singletonDesignPatternTest()
+            prototypeDesignPatternTest()
         }
     }
 
@@ -47,5 +48,25 @@ class MainActivity : AppCompatActivity() {
     private fun singletonDesignPatternTest() {
         val instance = SingleTonTest.instance
         println(instance::class.java.name)
+    }
+
+    private fun prototypeDesignPatternTest() {
+        val sender = EmailSender(
+            recipient = "test1@gmail.com",
+            subject = "hiring",
+            message = "hello dear user")
+        sender.send()
+
+        val sender2 = sender.clone()
+        sender2.recipient = "test2@gmail.com"
+        sender2.send()
+
+        /**
+         *  we can use
+         *  ***
+         *  val sender2 = sender.copy(recipient = "test2@gmail.com")
+         *  ***
+         *  in kotlin but in java we use that solution
+         */
     }
 }
