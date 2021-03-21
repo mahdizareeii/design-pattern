@@ -12,6 +12,8 @@ import com.kotlin.testapp.designpatterns.creational.factory.CarType
 import com.kotlin.testapp.designpatterns.creational.prototype.EmailSender
 import com.kotlin.testapp.designpatterns.creational.singleton.SingleTonTest
 import com.kotlin.testapp.designpatterns.structural.adapter.PlayerAdapter
+import com.kotlin.testapp.designpatterns.structural.composite.LocalDatabase
+import com.kotlin.testapp.designpatterns.structural.composite.ServerDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            adapterDesignPatternTest()
+            compositeDesignPatternTest()
         }
     }
 
@@ -55,7 +57,8 @@ class MainActivity : AppCompatActivity() {
         val sender = EmailSender(
             recipient = "test1@gmail.com",
             subject = "hiring",
-            message = "hello dear user")
+            message = "hello dear user"
+        )
         sender.send()
 
         val sender2 = sender.clone()
@@ -71,8 +74,21 @@ class MainActivity : AppCompatActivity() {
          */
     }
 
-    private fun adapterDesignPatternTest(){
+    private fun adapterDesignPatternTest() {
         val playerAdapter = PlayerAdapter()
         playerAdapter.play("hayedeh.mp3")
+    }
+
+    private fun compositeDesignPatternTest() {
+        val dbName = "dbPosts"
+        val tblName = "tblPosts"
+
+        val localDB = LocalDatabase()
+        localDB.createDatabase(dbName)
+        localDB.createTable(tblName)
+
+        val serverDB = ServerDatabase()
+        serverDB.createDatabase(dbName)
+        serverDB.createTable(tblName)
     }
 }
