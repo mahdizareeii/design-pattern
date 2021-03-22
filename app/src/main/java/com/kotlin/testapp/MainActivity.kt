@@ -12,6 +12,10 @@ import com.kotlin.testapp.designpatterns.creational.factory.CarType
 import com.kotlin.testapp.designpatterns.creational.prototype.EmailSender
 import com.kotlin.testapp.designpatterns.creational.singleton.SingleTonTest
 import com.kotlin.testapp.designpatterns.structural.adapter.PlayerAdapter
+import com.kotlin.testapp.designpatterns.structural.bridge.chat.Group
+import com.kotlin.testapp.designpatterns.structural.bridge.chat.PV
+import com.kotlin.testapp.designpatterns.structural.bridge.messanger.Telegram
+import com.kotlin.testapp.designpatterns.structural.bridge.messanger.WhatsApp
 import com.kotlin.testapp.designpatterns.structural.composite.LocalDatabase
 import com.kotlin.testapp.designpatterns.structural.composite.ServerDatabase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            compositeDesignPatternTest()
+            bridgeDesignPatternTest()
         }
     }
 
@@ -90,5 +94,19 @@ class MainActivity : AppCompatActivity() {
         val serverDB = ServerDatabase()
         serverDB.createDatabase(dbName)
         serverDB.createTable(tblName)
+    }
+
+    private fun bridgeDesignPatternTest() {
+        val message = "hello please follow my facebook page"
+        val pvMessage = PV(message)
+        val groupMessage = Group(message)
+
+        val telegram = Telegram()
+        telegram.sendMessage(pvMessage)
+        telegram.sendMessage(groupMessage)
+
+        val whatsApp = WhatsApp()
+        whatsApp.sendMessage(pvMessage)
+        whatsApp.sendMessage(groupMessage)
     }
 }
