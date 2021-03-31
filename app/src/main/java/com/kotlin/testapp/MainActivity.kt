@@ -18,6 +18,8 @@ import com.kotlin.testapp.designpatterns.structural.bridge.messanger.Telegram
 import com.kotlin.testapp.designpatterns.structural.bridge.messanger.WhatsApp
 import com.kotlin.testapp.designpatterns.structural.composite.LocalDatabase
 import com.kotlin.testapp.designpatterns.structural.composite.ServerDatabase
+import com.kotlin.testapp.designpatterns.structural.decorator.HumanDecoratorJavaSolution
+import com.kotlin.testapp.designpatterns.structural.decorator.human.Human
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            bridgeDesignPatternTest()
+            decoratorDesignPatternTest()
         }
     }
 
@@ -108,5 +110,11 @@ class MainActivity : AppCompatActivity() {
         val whatsApp = WhatsApp()
         whatsApp.sendMessage(pvMessage)
         whatsApp.sendMessage(groupMessage)
+    }
+
+    //decorator design pattern use for add property to a class without altering the structure
+    private fun decoratorDesignPatternTest() {
+        val humanDecorator = HumanDecoratorJavaSolution(Human())
+        humanDecorator.run()
     }
 }
