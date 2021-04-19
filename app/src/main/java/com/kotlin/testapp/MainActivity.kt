@@ -20,6 +20,8 @@ import com.kotlin.testapp.designpatterns.structural.composite.LocalDatabase
 import com.kotlin.testapp.designpatterns.structural.composite.ServerDatabase
 import com.kotlin.testapp.designpatterns.structural.decorator.HumanDecoratorJavaSolution
 import com.kotlin.testapp.designpatterns.structural.decorator.human.Human
+import com.kotlin.testapp.designpatterns.structural.facade.Language
+import com.kotlin.testapp.designpatterns.structural.facade.TranslatorManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            decoratorDesignPatternTest()
+            facadeDesignPatternTest()
         }
     }
 
@@ -116,5 +118,10 @@ class MainActivity : AppCompatActivity() {
     private fun decoratorDesignPatternTest() {
         val humanDecorator = HumanDecoratorJavaSolution(Human())
         humanDecorator.run()
+    }
+
+    private fun facadeDesignPatternTest() {
+        val translator = TranslatorManager()
+        translator.translateDetect("Hello", Language.ENGLISH, Language.PERSIAN)
     }
 }
