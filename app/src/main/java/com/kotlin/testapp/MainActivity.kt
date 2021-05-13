@@ -22,6 +22,8 @@ import com.kotlin.testapp.designpatterns.structural.decorator.HumanDecoratorJava
 import com.kotlin.testapp.designpatterns.structural.decorator.human.Human
 import com.kotlin.testapp.designpatterns.structural.facade.Language
 import com.kotlin.testapp.designpatterns.structural.facade.TranslatorManager
+import com.kotlin.testapp.designpatterns.structural.flyweight.GunFactory
+import com.kotlin.testapp.designpatterns.structural.flyweight.GunType
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            facadeDesignPatternTest()
+            flyweightDesignPatternTest()
         }
     }
 
@@ -123,5 +125,11 @@ class MainActivity : AppCompatActivity() {
     private fun facadeDesignPatternTest() {
         val translator = TranslatorManager()
         translator.translateDetect("Hello", Language.ENGLISH, Language.PERSIAN)
+    }
+
+    //store objects instance with flyweight design pattern for manage memory
+    private fun flyweightDesignPatternTest(){
+        val gun = GunFactory.getGun(GunType.MP5)
+        gun.fire()
     }
 }
