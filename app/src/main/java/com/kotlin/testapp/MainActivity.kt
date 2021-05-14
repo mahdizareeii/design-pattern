@@ -24,6 +24,7 @@ import com.kotlin.testapp.designpatterns.structural.facade.Language
 import com.kotlin.testapp.designpatterns.structural.facade.TranslatorManager
 import com.kotlin.testapp.designpatterns.structural.flyweight.GunFactory
 import com.kotlin.testapp.designpatterns.structural.flyweight.GunType
+import com.kotlin.testapp.designpatterns.structural.proxy.GameCharProxy
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            flyweightDesignPatternTest()
+            proxyDesignPatternTest()
         }
     }
 
@@ -128,8 +129,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     //store objects instance with flyweight design pattern for manage memory
-    private fun flyweightDesignPatternTest(){
+    private fun flyweightDesignPatternTest() {
         val gun = GunFactory.getGun(GunType.MP5)
         gun.fire()
+    }
+
+    //if our object has many heavy configuration we can use proxy design pattern for it
+    private fun proxyDesignPatternTest() {
+        val gameChar = GameCharProxy()
+        gameChar.runCharacter()
     }
 }
