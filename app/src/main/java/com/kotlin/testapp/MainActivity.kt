@@ -3,6 +3,8 @@ package com.kotlin.testapp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kotlin.testapp.designpatterns.behavioral.observer.ObservableText
+import com.kotlin.testapp.designpatterns.behavioral.observer.TextObserver
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.factories.motorcyclefactory.MotorcycleFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedType
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            proxyDesignPatternTest()
+            observerDesignPatternTest()
         }
     }
 
@@ -138,5 +140,18 @@ class MainActivity : AppCompatActivity() {
     private fun proxyDesignPatternTest() {
         val gameChar = GameCharProxy()
         gameChar.runCharacter()
+    }
+
+    //observer design pattern helps us to know when our object changed
+    private fun observerDesignPatternTest() {
+        val observer = object : TextObserver {
+            override fun onChanged(text: String) {
+                println("$text the value now changed...")
+            }
+        }
+
+        val text = ObservableText(observer)
+
+        text.value = "hello world"
     }
 }
