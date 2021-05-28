@@ -5,6 +5,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kotlin.testapp.designpatterns.behavioral.observer.ObservableText
 import com.kotlin.testapp.designpatterns.behavioral.observer.TextObserver
+import com.kotlin.testapp.designpatterns.behavioral.strategy.AnalyticsManager
+import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.FireHouseAnalytics
+import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.FirebaseAnalytics
+import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.OneSignalAnalytics
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.factories.motorcyclefactory.MotorcycleFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedType
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            observerDesignPatternTest()
+            strategyDesignPatternTest()
         }
     }
 
@@ -153,5 +157,14 @@ class MainActivity : AppCompatActivity() {
         val text = ObservableText(observer)
 
         text.value = "hello world"
+    }
+
+    //when you have multiple objects of the same nature with different functionalities
+    private fun strategyDesignPatternTest() {
+        val firebase = FirebaseAnalytics()
+        //val firehouse = FireHouseAnalytics()
+        //val oneSignal = OneSignalAnalytics()
+        val manager = AnalyticsManager(firebase)
+        manager.sendAnalytics()
     }
 }
