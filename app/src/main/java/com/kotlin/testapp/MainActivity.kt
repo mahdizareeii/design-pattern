@@ -3,12 +3,16 @@ package com.kotlin.testapp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kotlin.testapp.designpatterns.behavioral.command.CommandManager
+import com.kotlin.testapp.designpatterns.behavioral.command.command.TurnOffCommand
+import com.kotlin.testapp.designpatterns.behavioral.command.command.TurnOnCommand
+import com.kotlin.testapp.designpatterns.behavioral.command.electricalsystems.Computer
+import com.kotlin.testapp.designpatterns.behavioral.command.electricalsystems.PlayStation
+import com.kotlin.testapp.designpatterns.behavioral.command.electricalsystems.TV
 import com.kotlin.testapp.designpatterns.behavioral.observer.ObservableText
 import com.kotlin.testapp.designpatterns.behavioral.observer.TextObserver
 import com.kotlin.testapp.designpatterns.behavioral.strategy.AnalyticsManager
-import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.FireHouseAnalytics
 import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.FirebaseAnalytics
-import com.kotlin.testapp.designpatterns.behavioral.strategy.analytics.OneSignalAnalytics
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.factories.motorcyclefactory.MotorcycleFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedFactory
 import com.kotlin.testapp.designpatterns.creational.abstractfactory.motorizedfactory.MotorizedType
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnClick.setOnClickListener {
-            strategyDesignPatternTest()
+            commandDesignPatternTest()
         }
     }
 
@@ -166,5 +170,28 @@ class MainActivity : AppCompatActivity() {
         //val oneSignal = OneSignalAnalytics()
         val manager = AnalyticsManager(firebase)
         manager.sendAnalytics()
+    }
+
+    //when we want do something for many classes we can use command design pattern
+    private fun commandDesignPatternTest() {
+        //get instance from command manager
+        val manager = CommandManager()
+
+        //get instance from electrical classes
+        val tv = TV()
+        val playStation = PlayStation()
+        val computer = Computer()
+
+        //turn on all electrical systems
+        manager.addCommand(TurnOnCommand(tv))
+        manager.addCommand(TurnOnCommand(playStation))
+        manager.addCommand(TurnOnCommand(computer))
+        manager.executeCommand()
+
+        //turn off all electrical systems
+        manager.addCommand(TurnOffCommand(tv))
+        manager.addCommand(TurnOffCommand(playStation))
+        manager.addCommand(TurnOffCommand(computer))
+        manager.executeCommand()
     }
 }
